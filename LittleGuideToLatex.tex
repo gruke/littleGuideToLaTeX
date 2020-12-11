@@ -1,0 +1,149 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[cm]{fullpage}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\begin{document}	
+	\part*{Little Guide to \LaTeX}
+		
+	Short notes to myself for refreshing my memories about \LaTeX\ in future times. For more details and specific commands use Google or read the Wikibook about \LaTeX.\\
+	DE: \url{http://de.wikibooks.org/wiki/LaTeX-Kompendium}\\
+	EN: \url{http://en.wikibooks.org/wiki/LaTeX}
+	
+	\section{Set up of a document}
+	Like in a program code there are a few things declared before the actual executive commands start. These are valid for the whole paper.
+	
+	\begin{lstlisting}
+	\documentclass[10pt,a4paper]{article}
+	\usepackage[cm]{fullpage}
+	\usepackage{graphixs}
+	...
+	\end{lstlisting}
+	The \textit{kind} of document and the \textit{dimensions} of the paper as well as the \textit{command-libraries} are defined in the header of the code. A short description follows below:
+	
+	\paragraph{documentclass}
+	Describes the kind of the paper, use \textit{article} for most uses, other examples are \textit{report} for longer documents like a thesis, \textit{book} for books with multiple chapters and introductions\dots, \textit{letter}, \textit{slides} or \textit{beamer}. \\
+	In the rectangular brackets are the options for the paper, separated with a comma. \textit{Fontsize} (10pt, 11pt, \dots), \textit{papersize} (a4paper, a5paper, b5paper, \dots), two \textit{columns} are supported without additional packeges (onecolumn, twocolumn), \textit{page orientation} (landscape)
+	
+	\paragraph{usepackage}
+	If you are using pictures or other fancy commands, the basic \LaTeX-Editor needs additional libraries to understand the commands. I try to mention the needed packages with the explanation of the feature.\\
+	But to begin the package \textit{fullpage} reduces the big margins around the text.
+	
+	\section{How to begin a document}
+	
+	The actual content of the docment is like in programming marked with a beginning and end.
+	
+	\begin{lstlisting}
+	\begin{document}
+	content...
+	\end{document}
+	\end{lstlisting}
+	
+	\section{Content}
+	
+	\subsection{Title, Author and Date - "Top Matter"}
+	Not the most important thing for small papers, but more fore thesis and books. These details have their own command - the reason behind this is to have the option to add a certain style in the header of the code and you only have to declare it once. 
+	
+	\begin{lstlisting}
+		\title{Guide to Neverland}
+		\author{Nick Willing}
+		\date{9. December 2011}
+		\maketitle
+	\end{lstlisting}
+	With the \verb|\maketitle| the "Top Matter" will be inserted. Without, no special style would be used and the information will be added to the article like normal text.
+	
+	\paragraph{date} Writing the actual date is annoying and gets forgotten, that's why \LaTeX\ does it for you. With \verb|\maketitle| and no explicit date declared, \LaTeX\ puts the actual date in.\\
+	To ommit the date use empty brackets.
+	
+	\subsection{Table of Content}
+	An Index is created with the command \verb|\tableofcontents|.
+		
+	\subsection{Sections}
+	There are maximal 7 levels available. Note that \textit{chapters} can only be used in a book or report.\\
+	
+	\begin{tabular}{l|c}
+		Command & Level \\ 
+		\hline \verb|\part{name}| & -1 \\ 
+		\verb|\chapter{name}| & 0 \\ 
+		\verb|\section{name}| & 1 \\ 
+		\verb|\subsection{name}| & 2 \\ 
+		\verb|\subsubsection{name}| & 3 \\ 
+		\verb|\paragraph{name}| & 4 \\ 
+		\verb|\subparagraph{name}| & 5 \\ 
+		\hline 
+	\end{tabular} \\
+	\\
+	\\
+	Sections are numbered by default, to suppress this feature add a * to the command, for example \verb|\section*{name}| and the section will appear without a number.
+	
+	\subsection{Formatting}
+	\paragraph{Linebreak} To force a linebreak use \verb|\newline|, \verb|\linebreak| or just \verb|\\| which can be inserted easy with the key combination Ctrl + Enter.
+		
+	\paragraph{Pagebreak} Sometimes it is desired to break a page for a new chapter. This can be achieved with \verb|\pagebreak| or \verb|\newpage|.
+	
+	\paragraph{Ellipsis / \dots} A sequence of three dots is known as an ellipsis, it indicates omitted text. In \LaTeX\ the ellipsis command is \verb|\dots| and is prefered to normal periods since they are stacked much closer together.
+	
+	\subsection{Multicolumns under Construction}
+	3+ columns - package: columns
+		
+	\subsection{Fontstyle and Size}
+	Like Word and other text editors \LaTeX\ text can be visualised in \textit{italic} with \verb|\textit{...}|, \textbf{bold text} with \verb|\textbf{...}| and \underline{underlined} with the \verb|\underline{...}| command. Furthermore can with \verb|\textsl{...}| a \textsl{slanted text} and with \verb|\textsf{...}| a \textsf{sans serif text} be achieved.\\
+	
+	\begin{tabular}{l|c}
+		Command & Output\\
+		\hline \verb|{\tiny ...}| & {\tiny tiny} \\
+		\verb|{\small ...}| & {\small small} \\
+		\verb|{\large ...}| & {\large large} \\
+		\verb|{\Large ...}| & {\Large larger} \\
+		\verb|{\LARGE ...}| & {\LARGE even larger} \\
+		\verb|{\huge ...}| & {\huge huge} \\
+		\verb|{\Huge ...}| & {\Huge the biggest you can get} \\
+		\hline
+	\end{tabular}
+	
+	\section{Tables}
+	Tables are a bit more complicated since the dimensions cannot be adjusted very easy. At the top is the number of columns as well as the textalignment defined (l = left, c = center, r = right). For vertical lines between the columns put a | between the text alignment.
+	For horizontal lines put a \verb|\hline| before the row.
+	
+		\begin{lstlisting}
+		\begin{tabular}{c|c|c}
+		\hline ... & ... & ... //
+		\hline ... & ... & ... //
+		\hline ... & ... & ... //
+		\hline
+		\end{tabular}
+		\end{lstlisting}
+	
+	\section{Math}
+		
+	\subsection{Formulas}
+	The main advantage of using \LaTeX\ is that it always typesets the same way - there is no formula or picture that will mix up the paragraph you just wrote.	Mathematical formulas can be inserted in sentences or have their own line, which will be numbered automatically.\\
+	The easiest way (or the one with the least typing) is using the \verb|$ - Symbol|. One at the beginning and one at the end to finish the formula or equation. E.g. \verb|$a^2 + b^2 = c^2$| will become $a^2 + b^2 = c^2$.\\
+	If you prefer to separate the formulas from the text or mark a key equation, with a \verb|$$ - Symbol| the equation between will get its' own line. E.g. \verb|$$a^2 + b^2 = c^2$$| will become $$a^2 + b^2 = c^2$$
+	numbered?
+	
+	\section{Graphics}
+	
+	bilder - package: graphics ??
+	
+	\section{Computer Code}
+	code - packege:listings
+	verb  to display commands
+	
+	\section{Commenting the Document}
+	kommentare mit prozent slash oder nach enddocument
+	
+	\section{Weblinks / Fussnoten}
+	fussnoten
+		weblinks  - package hyperref
+
+
+	
+	
+
+	
+
+	
+	
+	
+\end{document}
